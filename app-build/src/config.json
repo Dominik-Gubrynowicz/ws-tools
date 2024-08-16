@@ -1,0 +1,29 @@
+{
+    "efs_path": "/app/log",
+    "db_config": {
+      "host": "ws-rds-db.c1suuiyqm18p.us-east-1.rds.amazonaws.com",
+      "user": "app",
+      "password": "worldskills",
+      "database": "worldskills"
+    },
+    "documentdb_config": {
+      "host": "documentdb-ws.cluster-c1suuiyqm18p.us-east-1.docdb.amazonaws.com",
+      "name": "worldskills",
+      "password": "worldskills123",
+      "port": 27017
+    },
+    "dynamodb_config": {
+      "table": "ws-2024-test-dominik-bucket"
+    },
+    "redis_config": {
+      "host": "ws-cluster.zn7hb2.0001.euw1.cache.amazonaws.com",
+      "port": 6379
+    },
+    "s3_config": {
+      "bucket_name": "ws-2024-test-dominik-bucket"
+    },
+    "api_gateway_config": {
+      "api_gateway_url": "https://70rvb6bbu6.execute-api.us-east-1.amazonaws.com",
+      "api_key": "worldskills"
+    }
+}

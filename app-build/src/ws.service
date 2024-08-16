@@ -1,0 +1,14 @@
+[Unit]
+Description=WsApp
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/app
+ExecStart=/app/server-root
+User=root
+Group=root
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
