@@ -1,5 +1,4 @@
 **/.terraform
 **/terraform.tfstate
 **/terraform.tfstate*
-app-build/src/_internal
-app-build/src/server-root
+app-build/src/app
