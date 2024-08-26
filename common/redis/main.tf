@@ -6,7 +6,7 @@ resource "aws_elasticache_cluster" "redis" {
   num_cache_nodes      = 1
   parameter_group_name = "default.redis7"
   subnet_group_name    = aws_elasticache_subnet_group.subnet_group.name
-  security_group_ids = [ aws_security_group.redis_group.id ]
+  security_group_ids   = [aws_security_group.redis_group.id]
   engine_version       = "7.1"
   port                 = 6379
 }
@@ -17,7 +17,7 @@ resource "aws_elasticache_subnet_group" "subnet_group" {
 }
 
 resource "aws_security_group" "redis_group" {
-  name_prefix        = "redis-sg-${var.cluster_name}"
+  name_prefix = "redis-sg-${var.cluster_name}"
   description = "Security group for Redis cluster"
   vpc_id      = var.vpc_id
 
