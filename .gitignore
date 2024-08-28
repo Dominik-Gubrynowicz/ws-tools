@@ -2,3 +2,4 @@
 **/terraform.tfstate
 **/terraform.tfstate*
 app-build/src/app
+id_rsa*

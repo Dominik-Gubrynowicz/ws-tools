@@ -18,7 +18,9 @@ resource "aws_instance" "web" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t3.micro"
 
-  user_data              = filebase64("userdata.yml")
+  user_data              = filebase64(templatefile("userdata.yml", {
+    ssh_public_key=file("${path.module}/../id_rsa")
+  }))
   vpc_security_group_ids = [aws_security_group.security_group.id]
   subnet_id              = var.subnet_id
   iam_instance_profile   = var.role_name == null ? null : aws_iam_instance_profile.ec2_profile[0].name
