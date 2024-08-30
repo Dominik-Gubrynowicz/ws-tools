@@ -1,6 +1,6 @@
 # Create launch template
 resource "aws_launch_template" "launch_template" {
-  name_prefix            = var.app_name
+  name_prefix            = "lt-${var.app_name}"
   image_id               = var.ami_id
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.ec2_group.id]

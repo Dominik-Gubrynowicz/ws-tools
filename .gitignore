@@ -3,3 +3,4 @@
 **/terraform.tfstate*
 app-build/src/app
 id_rsa*
+.DS_Store

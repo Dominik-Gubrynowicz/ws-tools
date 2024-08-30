@@ -1,5 +1,6 @@
 resource "aws_s3_bucket" "bucket" {
   bucket = var.s3_name
+  force_destroy = true
 }
 
 resource "aws_s3_bucket_public_access_block" "block_public_access" {

@@ -1,12 +1,12 @@
 resource "aws_security_group" "ec2_group" {
-  name        = "${var.app_name}-ec2-sg"
+  name_prefix        = "${var.app_name}-ec2-sg"
   description = "Allow app traffic"
   vpc_id      = var.vpc_id
 
   ingress {
     from_port       = var.app_port
     to_port         = var.app_port
-    protocol        = "-1"
+    protocol        = "tcp"
     security_groups = [aws_security_group.alb_group.id]
   }
 
@@ -27,14 +27,14 @@ data "aws_ec2_managed_prefix_list" "cloudfront" {
 }
 
 resource "aws_security_group" "alb_group" {
-  name        = "${var.app_name}-alb-sg"
+  name_prefix        = "${var.app_name}-alb-sg"
   description = "Allow app traffic"
   vpc_id      = var.vpc_id
 
   ingress {
     from_port       = var.app_port
     to_port         = var.app_port
-    protocol        = "-1"
+    protocol        = "tcp"
     prefix_list_ids = [data.aws_ec2_managed_prefix_list.cloudfront.id]
   }
 
