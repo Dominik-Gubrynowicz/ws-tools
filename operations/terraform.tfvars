@@ -1,5 +1,5 @@
 region     = "eu-west-1"
 vpc_id     = "vpc-05d68aa1a6a54fec2"
-subnet_id  = "subnet-04bd585c16516484d"
-s3_vpce_id = "vpce-011eaec2eacd10416"
+subnet_id  = "subnet-0a121c8f5afddf443"
+s3_vpce_id = "vpce-09385bc7b8e9e3af4"
 role_name  = "ws-role"

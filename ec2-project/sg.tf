@@ -22,7 +22,7 @@ resource "aws_security_group" "ec2_group" {
 data "aws_ec2_managed_prefix_list" "cloudfront" {
   filter {
     name   = "prefix-list-name"
-    values = ["CloudFront"]
+    values = ["com.amazonaws.global.cloudfront.origin-facing"]
   }
 }
 

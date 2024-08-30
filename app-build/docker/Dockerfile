@@ -19,5 +19,7 @@ COPY app-build/src/app .
 
 COPY app-build/src/start.sh /app/
 
+RUN ln -sf /dev/stdout /app/log/log.log
+
 ENTRYPOINT [ "" ]
 CMD [ "./start.sh" ]

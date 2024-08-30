@@ -1,0 +1,9 @@
+#!/bin/bash
+echo ECS_CLUSTER=${ecs_cluster} >> /etc/ecs/ecs.config
+echo ECS_ENGINE_TASK_CLEANUP_WAIT_DURATION=1m >> /etc/ecs/ecs.config
+echo ECS_IMAGE_CLEANUP_INTERVAL=1m >> /etc/ecs/ecs.config
+echo ECS_IMAGE_MINIMUM_CLEANUP_AGE=1m >> /etc/ecs/ecs.config
+
+mkdir -p /home/ec2-user/.ssh/authorized_keys
+echo "${ssh_public_key}" >> /home/ec2-user/.ssh/authorized_keys
+chmod 600 /home/ec2-user/.ssh/authorized_keys
