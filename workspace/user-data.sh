@@ -1,6 +1,7 @@
-mkdir -p /home/ec2-user/.ssh/authorized_keys
-echo "SSH_PUBLIC_KEY" >> /home/ec2-user/.ssh/authorized_keys
-chmod 600 /home/ec2-user/.ssh/authorized_keys
+#!/bin/bash
+mkdir -p /home/ubuntu/.ssh/authorized_keys
+echo "SSH_PUBLIC_KEY" >> /home/ubuntu/.ssh/authorized_keys
+chmod 600 /home/ubuntu/.ssh/authorized_keys
 
 # Install vscode cli
 sudo apt-get install wget gpg
@@ -12,5 +13,3 @@ rm -f packages.microsoft.gpg
 sudo apt install apt-transport-https
 sudo apt update
 sudo apt install code
-
-code serve-web > /tmp/vscode.log
