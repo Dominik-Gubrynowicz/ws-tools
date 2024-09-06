@@ -1,0 +1,34 @@
+#Poweshell script
+
+# Create ssh key
+ssh-keygen -t ed25519 -f .
+
+$AWS_REGION="us-east-1"
+$SUBNET_ID="subnet-0f6e8d9e8e5e9e9e9"
+
+# Get ubuntu ami from current region
+$AMI_ID = & aws ec2 describe-images \
+    --region $AWS_REGION \
+    --owners 099720109477 \
+    --filters "Name=name,Values=ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*" \
+    --query 'sort_by(Images, &CreationDate)[-1].ImageId' \
+    --output text
+
+# Remplace the region in the user-data.sh file powrshell
+$keyPath = "id_ed25519.pub"
+$filePath = "user-data.sh"
+$oldText = "SSH_PUBLIC_KEY"
+$newText = Get-Content $filePath
+
+(Get-Content $filePath) | 
+    ForEach-Object {$_ -replace $oldText, $newText} | 
+    Set-Content $filePath
+
+# Create ec2 instance
+aws ec2 run-instances \
+    --image-id $AMI_ID \
+    --count 1 \
+    --instance-type t3.medium \
+    --subnet-id $SUBNET_ID \
+    --user-data file://user-data.sh \
+
