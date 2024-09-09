@@ -4,6 +4,11 @@ resource "aws_dynamodb_table" "dynamodb" {
   range_key    = var.dynamodb_sort_key
   billing_mode = "PAY_PER_REQUEST"
 
+  server_side_encryption {
+    enabled     = true
+    kms_key_arn = null
+  }
+
   attribute {
     name = var.dynamodb_primary_key
     type = "S"
@@ -16,3 +21,4 @@ resource "aws_dynamodb_table" "dynamodb" {
     }
   }
 }
+
