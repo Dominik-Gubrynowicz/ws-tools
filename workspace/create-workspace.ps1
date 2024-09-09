@@ -55,3 +55,5 @@ $public_ip = & aws ec2 describe-instances `
 
 # Create .ssh config file with ssh configuration
 New-Item $homedir\.ssh\config -ItemType File -Force -Value "Host $public_ip`n    User ubuntu`n    IdentityFile $home\.ssh\id_rsa"
+
+ssh -N -f -L 8000:127.0.0.1:8000 ubuntu@public_ip

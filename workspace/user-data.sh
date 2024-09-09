@@ -27,7 +27,7 @@ tee /etc/apt/sources.list.d/hashicorp.list
 
 # Install vscode cli
 apt update -y
-apt-get -y install wget gpg apt-transport-https zsh code ca-certificates curl kubectl git unzip software-properties-common terraform
+apt-get -y install wget gpg apt-transport-https zsh code ca-certificates curl kubectl git unzip software-properties-common terraform mysql-client postgresql
 
 # Install docker
 install -m 0755 -d /etc/apt/keyrings
@@ -43,6 +43,7 @@ apt-get update -y
 apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 sudo -u ubuntu sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 # Aws CLI
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
@@ -51,6 +52,7 @@ unzip awscliv2.zip
 
 # replace plugins with new ones in zshrc
 sed -i 's/plugins=(git)/plugins=(git docker kubectl aws terraform)/g' /home/ubuntu/.zshrc
+sed -i 's/plugins=(git)/plugins=(git docker kubectl aws terraform)/g' /root/.zshrc
 
 usermod -aG docker ubuntu
 
@@ -66,3 +68,25 @@ curl -sL "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_ch
 tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
 
 mv /tmp/eksctl /usr/local/bin
+
+cat >/etc/systemd/system/code.service <<EOL
+[Unit]
+Description=Vscode
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/ubuntu
+ExecStart=
+ExecStart=code serve-web --without-connection-token
+User=root
+Group=root
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+systemctl daemon-reload
+systemctl enable code
+systemctl start code
