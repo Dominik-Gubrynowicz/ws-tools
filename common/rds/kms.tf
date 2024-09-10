@@ -3,7 +3,7 @@ data "aws_caller_identity" "current" {}
 resource "aws_kms_key" "database_key" {
   count = var.use_cmk ? 1 : 0
   description = "Key used for encrypting repository ${var.instance_name}"
-  deletion_window_in_days = 0
+  deletion_window_in_days = 7
   enable_key_rotation = true
   tags = {
     Name = "${var.instance_name}-key"

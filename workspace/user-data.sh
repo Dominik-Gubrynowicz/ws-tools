@@ -43,7 +43,7 @@ apt-get update -y
 apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 sudo -u ubuntu sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+chsh -s $(which zsh) ubuntu
 
 # Aws CLI
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
@@ -52,7 +52,6 @@ unzip awscliv2.zip
 
 # replace plugins with new ones in zshrc
 sed -i 's/plugins=(git)/plugins=(git docker kubectl aws terraform)/g' /home/ubuntu/.zshrc
-sed -i 's/plugins=(git)/plugins=(git docker kubectl aws terraform)/g' /root/.zshrc
 
 usermod -aG docker ubuntu
 
@@ -79,7 +78,7 @@ Type=simple
 WorkingDirectory=/home/ubuntu
 ExecStart=
 ExecStart=code serve-web --without-connection-token
-User=root
+User=ubuntu
 Group=root
 Restart=always
 
@@ -90,3 +89,6 @@ EOL
 systemctl daemon-reload
 systemctl enable code
 systemctl start code
+
+curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
+sudo dpkg -i session-manager-plugin.deb

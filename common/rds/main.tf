@@ -9,11 +9,12 @@ resource "aws_rds_cluster" "cluster" {
   database_name           = var.default_database_name
   master_username         = var.username
   master_password         = var.password
+  skip_final_snapshot = true
   backup_retention_period = 5
   preferred_backup_window = "07:00-09:00"
 
   storage_encrypted = true
-  kms_key_id        = var.use_cmk ? aws_kms_key.database_key : data.aws_kms_alias.rds_default.target_key_arn
+  kms_key_id        = var.use_cmk ? aws_kms_key.database_key[0].arn : data.aws_kms_alias.rds_default.target_key_arn
 
   db_subnet_group_name = aws_db_subnet_group.subnet_group.name
   vpc_security_group_ids = [
@@ -49,6 +50,13 @@ resource "aws_security_group" "rds_group" {
     from_port   = 5432
     to_port     = 5432
     protocol    = "tcp"
+    cidr_blocks = ["10.0.0.0/16"]
+  }
+
+  ingress {
+    from_port = 3306
+    to_port   = 3306
+    protocol  = "tcp"
     cidr_blocks = ["10.0.0.0/16"]
   }
 

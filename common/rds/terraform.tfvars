@@ -1,2 +1,10 @@
-region          = "eu-west-1"
-repository_name = "ws-repo"
+region          = "us-east-1"
+instance_name = "ws"
+instance_type = "db.t4g.medium"
+vpc_id = "vpc-028710f82e13da6ef"
+subnet_ids = [ "subnet-04fd67a27d2b40b4f", "subnet-07237fc6c5ac70cd0" ]
+engine = "aurora-postgresql"
+use_cmk = false
+username = "dominik"
+password = "tutajsupertajnehaslo"
+default_database_name = "worldskills"
